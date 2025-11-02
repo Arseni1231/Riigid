@@ -1,0 +1,52 @@
+Guess the country(Arseni Solovjov + Viktoria Zolotova + Demjan Andreev)
+Kirjeldus:
+Veebirakendus „Guess the Country” on interaktiivne mäng, kus kasutajad peavad ära arvama riigid, kasutades erinevaid vihjeid – lippe, pealinnu, fakte ja muid tunnuseid.
+
+Rakendus kuvab erinevaid riike ja genereerib erinevaid küsimusi.
+
+Mängus on mitu režiimi, punktisüsteem ja kasutajate reiting.
+Frontend:
+ReactJS
+HTML5
+TailwindCSS
+HeroUI
+Backend:
+PHP
+MySQL
+Funktsioonid:
+Mitme mängurežiimiga interaktiivne mäng:
+ 
+Quiz Mode (Viktoriin): vali õige vastus 4 variandi hulgast
+ 
+Flag Mode (Lipumäng): arva riik lipu järgi
+ 
+Reveal Field (Ava väli): osa lipust on kaetud, iga klõps avab uue ala
+ 
+Fact Mode (Faktimäng): riigi kohta antakse vihjeid (rahvaarv, pealinn, piirkond jne)
+ 
+Kasutajate haldus (registreerimine, sisselogimine, väljalogimine)
+ 
+Punktisüsteem ja edetabel
+ 
+Dark/Light teema*
+ 
+API andmete cachiimine backendis (vältimaks liigseid välispäringuid)
+Põhifunktsioonid:
+Kasutajate haldus: registreerimine, sisselogimine ja väljalogimine PHP backend’i kaudu; kasutajate andmed salvestatakse MySQL andmebaasis.
+ 
+Mänguloogika ja API integratsioon: PHP pärib riigiandmeid REST Countries API-st, töötleb need JSON-formaati ning edastab React frontend’ile.
+ 
+Mitme mängurežiimiga süsteem: neli erinevat mänguvarianti (Quiz Mode, Flag Mode, Reveal Field, Fact Mode), mille vahel saab kasutaja valida.
+ 
+Punktisüsteem ja statistika: iga õige vastus annab punkte; kasutaja tulemus ja mänguajalugu salvestatakse andmebaasi; edetabeli dünaamiline kuvamine.
+ 
+Andmete cachiimine: API vastused salvestatakse ajutiselt serverisse, et vähendada välispäringuid ja kiirendada mängu.
+ 
+Dark/Light teema: kasutaja saab valida teema, eelistus salvestatakse lokaalselt (LocalStorage).
+ 
+Teavitused ja animatsioonid: mängu ajal kuvatakse visuaalsed teavitused (õige/vale vastus, punktid) ja sujuvad üleminekud Framer Motioni abil.
+ 
+ 
+ 
+ 
+ 

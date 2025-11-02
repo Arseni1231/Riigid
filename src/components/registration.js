@@ -1,41 +1,67 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../css/Registration.css";
+import { useNavigate, Link } from "react-router-dom";
+import "../css/Login.css";
 
 export default function Register() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-  const register = (e) => {
-    e.preventDefault();
+    const handleRegister = async (e) => {
+        e.preventDefault();
 
-    if(username.trim() && password.trim()) {
-        localStorage.setItem("user", JSON.stringify({username}))
-        navigate("/profile")
-    } else {
-        alert("Fill in all fields!!!!!")
-    }
-  };
+        try {
+            const response = await fetch("http://localhost:5000/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, email, password }),
+            });
 
-  return(
-    <div className="register-container">
-      <h2>Регистрация</h2>
-      <form onSubmit={register} className="register-form">
-        <input
-          type="text"
-          placeholder="Имя пользователя"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Пароль"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Создать аккаунт</button>
-      </form>
-    </div>
-  );
+            const data = await response.json();
+
+            if (data.success) {
+                alert("Регистрация успешна! Теперь войдите.");
+                navigate("/login");
+            } else {
+                alert("Ошибка: " + data.message);
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Ошибка соединения с сервером");
+        }
+    };
+
+    return (
+        <div className="auth-container">
+            <h2>Регистрация</h2>
+            <form onSubmit={handleRegister}>
+                <input
+                    type="text"
+                    placeholder="Имя пользователя"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+                <input
+                    type="password"
+                    placeholder="Пароль"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+            <p>
+                Уже есть аккаунт? <Link to="/login">Войти</Link>
+            </p>
+        </div>
+    );
 }
