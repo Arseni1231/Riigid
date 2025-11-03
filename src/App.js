@@ -7,6 +7,9 @@ import Leaderboard from "./components/leaderboard";
 import Profile from "./components/profile";
 import Header from "./components/header";
 import Register from "./components/registration";
+import Quiz from "./components/quizGame";
+import GuessCapital from "./components/guesscapital";
+
 
 import "./css/App.css";
 
@@ -22,6 +25,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/game/flag" element={<Quiz />} />
+          <Route path="/game/capital" element={<GuessCapital />} />
         </Routes>
       </BrowserRouter>
     </div>

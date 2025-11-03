@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "../css/quizgame.css";
+import "../css/guesscapital.css";
 
-export default function Quiz() {
+export default function GuessCapital() {
   const TOTAL_QUESTIONS = 30;
+
   const [options, setOptions] = useState([]);
   const [correct, setCorrect] = useState(null);
   const [result, setResult] = useState("");
@@ -28,7 +29,7 @@ export default function Quiz() {
     }
   };
 
-  const fetchQuiz = async () => {
+  const fetchQuiz = () => {
     if (allCountries.length === 0) return;
 
     const correctIndex = Math.floor(Math.random() * allCountries.length);
@@ -38,7 +39,7 @@ export default function Quiz() {
     while (wrongOptions.length < 3) {
       const randIndex = Math.floor(Math.random() * allCountries.length);
       const country = allCountries[randIndex];
-      if (country.country_name !== correctCountry.country_name && !wrongOptions.find(c => c.country_name === country.country_name)) {
+      if (country.capital !== correctCountry.capital && !wrongOptions.find(c => c.capital === country.capital)) {
         wrongOptions.push(country);
       }
     }
@@ -52,10 +53,10 @@ export default function Quiz() {
   };
 
   const checkAnswer = (choice) => {
-    if (!correct) return;
+    if (!correct || !choice) return;
 
-    if (choice === correct.country_name) setScore(prev => prev + 1);
-    setResult(choice === correct.country_name ? "Верно!" : `Неверно! Правильный ответ: ${correct.country_name}`);
+    if (choice === correct.capital) setScore(prev => prev + 1);
+    setResult(choice === correct.capital ? "Верно!" : `Неверно! Правильный ответ: ${correct.capital}`);
 
     setTimeout(() => {
       if (questionIndex + 1 >= TOTAL_QUESTIONS) setQuizOver(true);
@@ -91,20 +92,18 @@ export default function Quiz() {
 
   return (
     <div className="quiz-container">
-      <h2>Угадай флаг ({questionIndex + 1}/{TOTAL_QUESTIONS})</h2>
-      {correct && (
-        <img
-          src={`http://localhost:5000/flags/${correct.flag_url}`} 
-          alt={`Флаг ${correct.country_name}`}
-          width={300}
-          height={200}
-        />
-      )}
+      <h2>Угадайте столицу ({questionIndex + 1}/{TOTAL_QUESTIONS})</h2>
+      {correct && <p className="question">Страна: {correct.country_name}</p>}
       <div className="options">
-        <button onClick={() => checkAnswer(options[0]?.country_name)}>{options[0]?.country_name}</button>
-        <button onClick={() => checkAnswer(options[1]?.country_name)}>{options[1]?.country_name}</button>
-        <button onClick={() => checkAnswer(options[2]?.country_name)}>{options[2]?.country_name}</button>
-        <button onClick={() => checkAnswer(options[3]?.country_name)}>{options[3]?.country_name}</button>
+        {[0, 1, 2, 3].map((i) => (
+          <button
+            key={i}
+            onClick={() => checkAnswer(options[i]?.capital)}
+            disabled={!options[i]}
+          >
+            {options[i]?.capital || "..."}
+          </button>
+        ))}
       </div>
       <p className="result">{result}</p>
       <button className="skip-btn" onClick={() => {
@@ -114,8 +113,4 @@ export default function Quiz() {
     </div>
   );
 }
-
-
-
-
 
