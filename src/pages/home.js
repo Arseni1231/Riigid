@@ -7,15 +7,8 @@ export default function Home() {
 <div className="home">
       
       <p>Выберите режим игры, чтобы начать угадывать страны.</p>
+    
 
-      <div className="home-buttons">
-        <button
-          className="home-button start-game"
-          onClick={() => navigate("/gameModeSelector")} >
-        
-          Start game
-        </button>
-      </div>
     </div>
   );
 }

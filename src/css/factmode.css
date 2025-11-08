@@ -1,0 +1,12 @@
+.options {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 150px; 
+}
+
+.next-btn {
+  display: flex;
+  justify-content: center; 
+  column-gap: 20px;            
+}

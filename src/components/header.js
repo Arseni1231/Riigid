@@ -1,10 +1,28 @@
 import React, {useState, useEffect} from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../css/App.css";
 
 function Header() {
     const [theme, setTheme] = useState("light");
+    const [user, setUser] = useState(null);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        setUser(storedUser ? JSON.parse(storedUser) : null);
+    }, [location]);
+
+  
+    useEffect(() => {
+    const handleStorageChange = () => {
+      const storedUser = localStorage.getItem("user");
+      setUser(storedUser ? JSON.parse(storedUser) : null);
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
     
     useEffect(() => {
         if(theme == "dark") {
@@ -17,6 +35,13 @@ function Header() {
     const toggle = () => {
         setTheme(theme == "light" ? "dark" : "light");
     };
+
+    const handleLogout = () => {
+        localStorage.removeItem("user");
+        setUser(null);
+        navigate("/");
+    };
+
 
     return (
         <header className="header">
@@ -31,7 +56,21 @@ function Header() {
                 </div>
                 
                 <div className="nav-controls">
-                    <button onClick={() => navigate("/login")} className="nav-btn">Login</button>
+                    {user ? (
+                        
+                        <>
+                            <button onClick={() => navigate("/profile")} className="nav-btn">
+                                Профиль
+                            </button>
+                            <button onClick={handleLogout} className="nav-btn">
+                                Выйти
+                            </button>
+                        </>
+                    ) : (// Показываем когда пользователь не авторизован
+                        <button onClick={() => navigate("/login")} className="nav-btn">
+                            Login
+                        </button>
+                    )}
                     <button onClick={toggle} className="nav-btn">
                         {theme == "light" ? "Night" : "Light"}
                     </button>

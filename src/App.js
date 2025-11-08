@@ -9,9 +9,12 @@ import Header from "./components/header";
 import Register from "./components/registration";
 import Quiz from "./components/quizGame";
 import GuessCapital from "./components/guesscapital";
-
+import FactMode from "./components/factMode";
+import RevealField from "./components/revealField";
 
 import "./css/App.css";
+
+
 
 function App() {
   return (
@@ -27,6 +30,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/game/flag" element={<Quiz />} />
           <Route path="/game/capital" element={<GuessCapital />} />
+          <Route path="/game/region" element={<FactMode />} />
+          <Route path="/game/population" element={<RevealField />} />
         </Routes>
       </BrowserRouter>
     </div>

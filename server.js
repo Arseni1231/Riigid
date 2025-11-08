@@ -185,6 +185,24 @@ async function startServer() {
             }
         });
 
+        app.get("/facts", async (req, res) => {
+            try {
+                const [rows] = await db.query(
+                "SELECT id, country_id, fact FROM facts"
+            );
+
+            const [factsWithCountry] = await db.query(
+            `SELECT f.id, f.fact, c.country_name, c.id AS country_id
+            FROM facts f
+            JOIN countries c ON f.country_id = c.id`
+            );
+            res.json(factsWithCountry);
+        } catch (err) {
+            console.error("Ошибка при получении фактов:", err.message);
+            res.status(500).json({ success: false, message: "Ошибка получения фактов" });
+        }
+        });
+
 
         app.listen(5000, () => {
             console.log("Сервер запущен на порту 5000");

@@ -1,4 +1,8 @@
-button {
+.button {
+  display: flex;
+  justify-content: center;    
+  column-gap: 15px;              
+  margin-top: 20px;
   background-color: #4CAF50;
   color: white;
   border: none;
@@ -9,3 +13,4 @@ button {
   cursor: pointer;
   transition: background-color 0.3s;
 }
+

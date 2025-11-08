@@ -1,0 +1,48 @@
+.reveal-field-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 80px);
+  grid-gap: 10px;
+  margin-bottom: 20px;
+}
+
+.cell {
+  width: 80px;
+  height: 80px;
+  background-color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.cell.opened {
+  background-color: #fff;
+}
+
+.cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.input-block {
+  display: flex;
+  gap: 10px;
+}
+
+.message {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.cell.opened:nth-child(1) img { clip-path: inset(0 50% 50% 0); }
+.cell.opened:nth-child(2) img { clip-path: inset(0 0 50% 50%); }
+.cell.opened:nth-child(3) img { clip-path: inset(50% 50% 0 0); }
+.cell.opened:nth-child(4) img { clip-path: inset(50% 0 0 50%); }

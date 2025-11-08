@@ -1,3 +1,17 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --button-bg: #eee;
+  --button-text: #000;
+}
+
+.dark {
+  --bg-color: #1e1e1e;
+  --text-color: #ffffff;
+  --button-bg: #333;
+  --button-text: #fff;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,9 +19,27 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f0f4f8;
-  color: #333;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  font-family: sans-serif;
+}
+
+button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 8px 16px;
+  margin: 4px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+
+.header {
+  padding: 10px 20px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 .App {
@@ -35,9 +67,6 @@ body {
   line-height: 1.6;
 }
 
-.header {
-  margin-bottom: 30px;
-}
 
 .nav {
   display: flex;
@@ -84,3 +113,5 @@ body {
   transition: background 0.3s ease;
   margin-left: 200px;
 }
+
+
