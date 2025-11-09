@@ -1,16 +1,36 @@
-.button {
-  display: flex;
-  justify-content: center;    
-  column-gap: 15px;              
-  margin-top: 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin: 8px 0;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+h3 {
+  margin-left: 860px;
 }
+.button-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 80px;
+  padding: 20px 30px;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+}
+
+.button{
+  padding: 25px 35px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+  min-width: 280px;
+  min-height: 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+
+
+
+
 

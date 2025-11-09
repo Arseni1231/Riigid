@@ -24,17 +24,6 @@ function Header() {
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
     
-    useEffect(() => {
-        if(theme == "dark") {
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-        }
-    }, [theme]);
-
-    const toggle = () => {
-        setTheme(theme == "light" ? "dark" : "light");
-    };
 
     const handleLogout = () => {
         localStorage.removeItem("user");
@@ -71,9 +60,6 @@ function Header() {
                             Login
                         </button>
                     )}
-                    <button onClick={toggle} className="nav-btn">
-                        {theme == "light" ? "Night" : "Light"}
-                    </button>
                 </div>
             </div>
         </header>

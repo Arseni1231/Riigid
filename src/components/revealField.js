@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../css/revealField.css";
 
 export default function RevealField() {
-  const NUM_CELLS = 4; // 2x2
+  const NUM_CELLS = 4; 
   const MAX_SCORE = 10;
   const MAX_ROUNDS = 10;
 
@@ -145,6 +145,7 @@ function getClipPath(index) {
     case 1: return "inset(0 0 50% 50%)";
     case 2: return "inset(50% 50% 0 0)";
     case 3: return "inset(50% 0 0 50%)";
-    default: return "none";
+    default: 
+      return "none";
   }
 }

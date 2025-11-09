@@ -23,6 +23,7 @@ export default function GuessCapital() {
     try {
       const res = await fetch("http://localhost:5000/flags"); 
       const data = await res.json();
+      console.log("Первая страна:", data[0]); // Для проверки
       setAllCountries(data);
     } catch (err) {
       console.error("Ошибка загрузки стран:", err);
@@ -93,7 +94,27 @@ export default function GuessCapital() {
   return (
     <div className="quiz-container">
       <h2>Угадайте столицу ({questionIndex + 1}/{TOTAL_QUESTIONS})</h2>
-      {correct && <p className="question">Страна: {correct.country_name}</p>}
+      
+      {correct && (
+        <div className="flag-container">
+          
+          <img 
+            src={correct.flag_url} 
+            alt={`Флаг ${correct.country_name}`}
+            className="flag-image"
+            onError={(e) => {
+              console.error("Ошибка загрузки изображения:", correct.flag_url);
+              e.target.style.display = 'none';
+            }}
+            onLoad={(e) => {
+              console.log("Изображение загружено успешно:", correct.flag_url);
+            }}
+          />
+         
+        </div>
+      )}
+
+      
       <div className="options">
         {[0, 1, 2, 3].map((i) => (
           <button
@@ -109,8 +130,8 @@ export default function GuessCapital() {
       <button className="skip-btn" onClick={() => {
         if (questionIndex + 1 >= TOTAL_QUESTIONS) setQuizOver(true);
         else setQuestionIndex(prev => prev + 1);
+        fetchQuiz();
       }}>Пропустить</button>
     </div>
   );
 }
-
