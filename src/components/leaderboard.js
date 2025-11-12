@@ -19,6 +19,8 @@ export default function Leaderboard() {
       console.error("Ошибка при загрузке лидеров:", err);
       setLoading(false);
     }
+    
+
   };
 
   useEffect(() => {

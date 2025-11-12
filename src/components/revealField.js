@@ -45,38 +45,48 @@ export default function RevealField() {
     }
   };
 
+  const [answered, setAnswered] = useState(false);
+
   const checkAnswer = () => {
-    if (!correctCountry) return;
+    if (!correctCountry || answered) return;
 
     if (input.trim().toLowerCase() === correctCountry.country_name.toLowerCase()) {
-      const points = Math.max(MAX_SCORE - openedCells.length + 1, 1);
-      setScore(prev => prev + points);
-      setMessage(`✅ Верно! Вы получили ${points} очков.`);
+        const points = Math.max(MAX_SCORE - openedCells.length, 1);
+        setScore(prev => prev + points);
+        setMessage(`✅ Верно! Вы получили ${points} очков.`);
+        setAnswered(true);
     } else {
-      setMessage("❌ Неверно! Попробуйте открыть ещё клетку.");
-      return;
+        setMessage("❌ Неверно! Попробуйте открыть ещё клетку.");
+        return;
     }
 
     setTimeout(() => {
-      if (round < MAX_ROUNDS) {
-        setRound(prev => prev + 1);
-        startNewRound();
-      } else {
-        endGame();
-      }
+        if (round < MAX_ROUNDS) {
+            setRound(prev => prev + 1);
+            startNewRound();
+            setAnswered(false); 
+        } else {
+            endGame();
+        }
     }, 1200);
-  };
+};
 
   const endGame = () => {
     setGameOver(true);
-    setMessage(`🏁 Игра окончена! Ваш итог: ${score} очков.`);
+    setMessage(`Игра окончена! Ваш итог: ${score} очков.`);
 
-    // сохраняем очки игроку, если он вошёл
+    
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
-      const results = JSON.parse(localStorage.getItem("results") || "{}");
-      results[user.username] = (results[user.username] || 0) + score;
-      localStorage.setItem("results", JSON.stringify(results));
+      
+      fetch("http://localhost:5000/leaderboard", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: user.id, score })
+      })
+      .then(res => res.json())
+      .then(data => console.log("Очки отправлены на сервер:", data))
+      .catch(err => console.error("Ошибка при сохранении очков:", err));
     }
   };
 
@@ -128,6 +138,18 @@ export default function RevealField() {
               onChange={(e) => setInput(e.target.value)}
             />
             <button onClick={checkAnswer}>Угадать</button>
+             <button onClick={() => {
+      if (round < MAX_ROUNDS) {
+        setRound(prev => prev + 1);
+        startNewRound();
+        setAnswered(false);
+        setMessage("Раунд пропущен!");
+      } else {
+        endGame();
+      }
+    }}
+    
+  >Пропустить</button>
           </div>
         </>
       ) : (

@@ -120,15 +120,26 @@ async function startServer() {
             }
         });
 
-        app.get("/users", async (req, res) => {
+        app.post("/leaderboard", async (req, res) => {
             try {
-                const [rows] = await db.query("SELECT id, username, email, created_at FROM users");
-                console.log("Пользователи в базе:", rows);
-                res.json(rows);
-            } catch (e) {
-                res.json({ error: e.message });
+                const { user_id, score } = req.body;
+                if (!user_id || score === undefined) 
+                    return res.status(400).json({ success: false }
+                );
+
+                await db.query(
+                `INSERT INTO users (user_id, total_score)
+                VALUES (?, ?)
+                ON DUPLICATE KEY UPDATE total_score = total_score + ?`,
+                [user_id, score, score]
+                );
+
+                res.json({ success: true });
+            } catch (err) {
+                console.error("Ошибка при сохранении очков:", err.message);
+                res.status(500).json({ success: false, message: err.message });
             }
-        });
+});
 
 
 
